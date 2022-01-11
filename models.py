@@ -73,6 +73,7 @@ class Recipe(db.Model):
 
     id = db.Column(
         db.Integer,
+        primary_key = True,
         nullable = False
     )
 

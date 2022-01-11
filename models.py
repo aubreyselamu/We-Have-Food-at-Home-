@@ -1,6 +1,9 @@
 '''SQLAlchemy Models for We Got Food At Home!'''
 
+import bcrypt
 from flask_sqlalchemy import SQLAlchemy 
+from flask_bcrypt import Bcrypt
+
 db = SQLAlchemy()
 
 def connect_db(app):
@@ -34,6 +37,34 @@ class User(db.Model):
             nullable = False,
             unique = True
     )
+
+    @classmethod
+    def signup(cls, username, password, email):
+        '''Sign up user'''
+
+        hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
+
+        user = User(
+            username = username,
+            password = hashed_pwd,
+            email = email
+        )
+
+        db.session.add(user)
+        return user
+    
+    @classmethod
+    def authenticate(cls, username, password):
+        '''Find user with `username` and `password`'''
+
+        user = cls.query.filter_by(username=username).first()
+
+        if user:
+            is_auth = bcrypt.check_password_hash(user.password, password)
+            if is_auth:
+                return user
+        
+        return False
 
 class Recipe(db.Model):
     '''An individual recipe'''
@@ -75,5 +106,5 @@ class Favorite(db.Model):
     recipe_id = db.Column(
             db.Integer,
             db.ForeignKey('recipes.id', ondelete = 'cascade')
-    ))
+    )
 

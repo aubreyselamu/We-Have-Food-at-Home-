@@ -75,5 +75,5 @@ class Favorite(db.Model):
     recipe_id = db.Column(
             db.Integer,
             db.ForeignKey('recipes.id', ondelete = 'cascade')
-    )
+    ))
 

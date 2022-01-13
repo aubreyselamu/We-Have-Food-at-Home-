@@ -1,0 +1,14 @@
+.navbar {
+	background-color: green;
+	position: relative;
+	margin-bottom: 1rem;
+}
+
+.navbar a {
+	color: white;
+	font-weight: bold;
+}
+
+.user:hover {
+	color: green;
+}

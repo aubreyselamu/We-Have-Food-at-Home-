@@ -8,9 +8,9 @@ db.create_all()
 User.query.delete()
 
 #Add users
-Aubrey = User(username = 'aubrey.selamu', password = 'Ethiopia_1998', email = 'aubrey@gmail.com')
-Olani = User(username = 'olani.mendes', password = 'nani174life', email = 'olani@ics.edu')
-Yohanna = User(username = 'yohanna123', password = 'cookieswirl', email = 'yohanna@yahoo.com')
+Aubrey = User.signup(username = 'aubrey.selamu', password = 'Ethiopia_1998', email = 'aubrey@gmail.com')
+Olani = User.signup(username = 'olani.mendes', password = 'nani174life', email = 'olani@ics.edu')
+Yohanna = User.signup(username = 'yohanna123', password = 'cookieswirl', email = 'yohanna@yahoo.com')
 
 #Add new objects to session
 db.session.add(Aubrey)

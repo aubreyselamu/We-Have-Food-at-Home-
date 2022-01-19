@@ -1,4 +1,5 @@
 import os
+import requests
 
 from flask import Flask, render_template, request, redirect, session, flash, g
 from flask_debugtoolbar import DebugToolbarExtension
@@ -94,14 +95,38 @@ def logout():
     flash("You have successfully logged out", 'success')
     return redirect('/login')
 
-
-
 @app.route('/')
 def test():
     return render_template('base.html')
 
+##############################################################################
+# Recipe Routes
+
 @app.route('/search')
-def search_recipes():
+def ingredients_search():
+    '''Display ingredients form and allow users to enter household ingredients'''
+    
     form = IngredientForm()
     return render_template('recipe/search.html', form=form)
+
+@app.route('/recipes', methods = ['POST'])
+def get_recipe_list():
+    '''Process ingredient form and display a list of recipes to users'''
+
+    form = IngredientForm()
+
+    if form.validate_on_submit():
+        ingredients = form.ingredients.data
+
+        res = requests.get('https://api.spoonacular.com/recipes/findByIngredients', 
+                params={'apiKey': 'd0a6169003194a3c865ffb59e9373166', 'ingredients': ingredients})
+        data = res.json()
+
+        return render_template('hello.html', ingredients=ingredients, data=data)
+    else:
+        return redirect('/search')
+
+
+
+
 

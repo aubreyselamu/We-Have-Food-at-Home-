@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="bg"></div>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <ul class="list-group no-hover" id="recipes">
+        {% for recipe in data %}
+        <div class="card mb-3" style="max-width: 540px height 100;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="{{recipe.image}}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{recipe.title}} {{recipe.id}}</h5>
+                <p class="card-text">Recipe summary section</p>
+                <div>
+                  <i>Ingredients section</i>
+                </div>
+                <div>
+                  <a href="#" class="btn btn-primary">Click Me for Recipe Details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </ul>
+      {% endblock %}
+
+
+
+
+
+
+
+
+      
+
+
+

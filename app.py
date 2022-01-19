@@ -122,9 +122,26 @@ def get_recipe_list():
                 params={'apiKey': 'd0a6169003194a3c865ffb59e9373166', 'ingredients': ingredients})
         data = res.json()
 
-        return render_template('hello.html', ingredients=ingredients, data=data)
+        return render_template('recipe/recipe_list.html', ingredients=ingredients, data=data)
     else:
         return redirect('/search')
+
+@app.route('/recipe/<int:recipe_id>')
+def get_recipe_details(recipe_id):
+    '''Page with details about an individual recipe
+    such as ingredients, price, steps etc.'''
+
+    res_recipe = requests.get(f'https://api.spoonacular.com/recipes/{recipe_id}/information?apiKey=d0a6169003194a3c865ffb59e9373166')
+    data_recipe = res_recipe.json()
+
+    res_instructions = requests.get(f'https://api.spoonacular.com/recipes/{recipe_id}/analyzedInstructions?apiKey=d0a6169003194a3c865ffb59e9373166')
+    data_instructions = res_instructions.json()
+
+
+
+    return render_template('recipe/recipe_detail.html', data_recipe = data_recipe, data_instructions=data_instructions)
+
+
 
 
 

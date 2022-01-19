@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src="{{data_recipe.image}}" class="img-fluid" alt="..." style="width: 100;">
+    <h1>{{data_recipe.title}}</h1>
+    <h2>Ingredients</h2>
+    <span>{{data_recipe.summary}}</span>
+    {% for ingredients in data_recipe['extendedIngredients']%}
+    <ul class="list-group">
+        <li class="list-group-item">
+          <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+          {{ingredients.original}}
+        </li>
+      </ul>
+    {% endfor %}
+</body>
+</html>

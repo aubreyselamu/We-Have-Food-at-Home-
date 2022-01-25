@@ -4,6 +4,7 @@ import bcrypt
 from flask_sqlalchemy import SQLAlchemy 
 from flask_bcrypt import Bcrypt
 
+bcrypt = Bcrypt()
 db = SQLAlchemy()
 
 def connect_db(app):
@@ -42,7 +43,7 @@ class User(db.Model):
     def signup(cls, username, password, email):
         '''Sign up user'''
 
-        hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
+        hashed_pwd = bcrypt.generate_password_hash(password).decode('utf8')
 
         user = User(
             username = username,
@@ -51,6 +52,7 @@ class User(db.Model):
         )
 
         db.session.add(user)
+        db.session.commit()
         return user
     
     @classmethod
@@ -82,7 +84,7 @@ class Recipe(db.Model):
         nullable = False
     )
 
-    title = db.Column(
+    name = db.Column(
         db.Text
     )
 

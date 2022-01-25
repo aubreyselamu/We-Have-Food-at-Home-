@@ -19,5 +19,14 @@
         </li>
       </ul>
     {% endfor %}
+    <ol>
+      {% for instruction in data_instructions %}
+        {% for step in instruction.steps %}
+        <li>
+          {{step.step}}
+        </li>
+        {% endfor %}
+      {% endfor %}
+    </ol>
 </body>
 </html>

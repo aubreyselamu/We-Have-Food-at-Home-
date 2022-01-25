@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block body_class %}onboarding{% endblock %}
+
+{% block content %}
+
+<div class="login-image"></div>
+  <div class="container-fluid pt-5">
+    <div class="row align-items-center justify-content-left">
+      <div class="col-md-5">
+        <div class="mb-4">
+        <h3 class="join-message">Login to Continue</h3>
+        <p class="mb-4">Glad to Have You Back!</p>
+        </div>
+        <form method="POST">
+          {{ form.hidden_tag() }}
+  
+          {% for field in form if field.widget.input_type != 'hidden' %}
+  
+          <div class="mb-3">
+            {{ field(placeholder=field.label.text, class="form-control") }}
+          </div>
+            {% for error in field.errors %}
+          <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+          
+          {% endfor %}
+          <button class="btn btn-block btn-success btn-lg">Log In</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+  {% endblock %}

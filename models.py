@@ -39,6 +39,11 @@ class User(db.Model):
             unique = True
     )
 
+    favorites = db.relationship(
+        'Recipe',
+        secondary="favorites"
+    )
+
     @classmethod
     def signup(cls, username, password, email):
         '''Sign up user'''
@@ -88,9 +93,6 @@ class Recipe(db.Model):
         db.Text
     )
 
-    ingredients = db.Column(
-        db.Text
-    )
 
 class Favorite(db.Model):
 

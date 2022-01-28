@@ -1,3 +1,4 @@
+from crypt import methods
 import os
 import requests
 
@@ -126,7 +127,7 @@ def get_recipe_list():
     else:
         return redirect('/search')
 
-@app.route('/recipe/<int:recipe_id>')
+@app.route('/recipe/<int:recipe_id>', methods=["GET","POST"])
 def get_recipe_details(recipe_id):
     '''Page with details about an individual recipe
     such as ingredients, price, steps etc.'''
@@ -137,9 +138,25 @@ def get_recipe_details(recipe_id):
     res_instructions = requests.get(f'https://api.spoonacular.com/recipes/{recipe_id}/analyzedInstructions?apiKey=d0a6169003194a3c865ffb59e9373166')
     data_instructions = res_instructions.json()
 
+    recipe = Recipe(id = recipe_id, image_url = data_recipe['image'], name = data_recipe['title'])
 
 
-    return render_template('recipe/recipe_detail.html', data_recipe = data_recipe, data_instructions=data_instructions)
+    return render_template('recipe/recipe_detail.html', data_recipe = data_recipe, data_instructions=data_instructions, recipe_id=recipe_id)
+
+
+
+@app.route('/recipe/<int:recipe_id>', methods = ['POST'])
+def add_favorites(recipe_id):
+    '''Toggle liked recipe for current user'''
+   
+
+    favorited_recipe = Recipe.query.get_or_404(recipe_id)
+
+    user_favorites = g.user.favorites
+    g.user.favorites.append(favorited_recipe)
+
+
+
 
 
 

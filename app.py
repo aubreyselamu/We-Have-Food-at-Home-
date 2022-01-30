@@ -162,9 +162,11 @@ def add_favorites(recipe_id):
     db.session.add(user)
     db.session.commit()
 
-    favorite = Favorite.query.get(g.user.id)
+    favorites = Favorite.query.get(g.user.id)
 
-    return render_template('user/favorites.html', favorite=favorite)
+    return render_template('user/favorites.html', favorites=favorites)
+
+
 
 
 

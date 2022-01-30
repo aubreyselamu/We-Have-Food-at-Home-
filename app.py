@@ -127,7 +127,7 @@ def get_recipe_list():
     else:
         return redirect('/search')
 
-@app.route('/recipe/<int:recipe_id>', methods=["GET","POST"])
+@app.route('/recipe/<int:recipe_id>', methods=["GET"])
 def get_recipe_details(recipe_id):
     '''Page with details about an individual recipe
     such as ingredients, price, steps etc.'''
@@ -138,22 +138,35 @@ def get_recipe_details(recipe_id):
     res_instructions = requests.get(f'https://api.spoonacular.com/recipes/{recipe_id}/analyzedInstructions?apiKey=d0a6169003194a3c865ffb59e9373166')
     data_instructions = res_instructions.json()
 
-    recipe = Recipe(id = recipe_id, image_url = data_recipe['image'], name = data_recipe['title'])
-
+    if Recipe.query.get(recipe_id) is None:
+        recipe = Recipe(id = recipe_id, image_url = data_recipe['image'], name = data_recipe['title'])
+        db.session.add(recipe)
+        db.session.commit()
 
     return render_template('recipe/recipe_detail.html', data_recipe = data_recipe, data_instructions=data_instructions, recipe_id=recipe_id)
 
 
-
-@app.route('/recipe/<int:recipe_id>', methods = ['POST'])
+@app.route('/recipe/<int:recipe_id>/favorites', methods = ['POST'])
 def add_favorites(recipe_id):
     '''Toggle liked recipe for current user'''
-   
 
+    if not g.user:
+        flash("Sign up to add recipe to favorite!", "danger")
+        return redirect('/signup')
+   
+    user = User.query.get(g.user.id)
     favorited_recipe = Recipe.query.get_or_404(recipe_id)
 
-    user_favorites = g.user.favorites
-    g.user.favorites.append(favorited_recipe)
+    
+    user.favorites.append(favorited_recipe)
+    db.session.add(user)
+    db.session.commit()
+
+    favorite = Favorite.query.get(g.user.id)
+
+    return render_template('user/favorites.html', favorite=favorite)
+
+
 
 
 

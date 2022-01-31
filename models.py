@@ -93,6 +93,7 @@ class Recipe(db.Model):
         db.Text
     )
 
+    favorite_recipes = db.relationship('Favorite', backref = 'recipe')
 
 class Favorite(db.Model):
 

@@ -4,7 +4,7 @@ from unittest import result
 import requests
 
 from flask import Flask, render_template, request, redirect, session, flash, g
-from test import read, check_valid_ingredient
+from validation_functions import read, check_valid_ingredient
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Recipe, Favorite
 from forms import IngredientForm, UserAddForm, LoginForm

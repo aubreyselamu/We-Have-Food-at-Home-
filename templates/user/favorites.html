@@ -1,3 +1,32 @@
-<h1>Testing</h1>
-
-<h1>{{favorite.recipe_id}}</h1>
+{% extends 'base.html' %}
+{% block content %}
+<div class="bg"></div>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <ul class="list-group no-hover" id="recipes">
+        {% for favorite in favorite_recipes%}
+        <div class="card mb-3" style="max-width: 540px height 75;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{{favorite.recipe.image_url}}" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">{{favorite.recipe.name}}</h5>
+                  <p class="card-text">Recipe summary section</p>
+                  <div class="mb-2">
+                    <i>Ingredients section</i>
+                  </div>
+                  <form>
+                    <button>Delete Me</button>
+                  </form>
+                  <div>
+                    <a href="#" class="btn btn-primary">Click Me for Recipe Details</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </ul>
+        {% endblock %}

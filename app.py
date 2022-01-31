@@ -1,8 +1,10 @@
 from crypt import methods
 import os
+from unittest import result
 import requests
 
 from flask import Flask, render_template, request, redirect, session, flash, g
+from test import read, check_valid_ingredient
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Recipe, Favorite
 from forms import IngredientForm, UserAddForm, LoginForm
@@ -117,6 +119,11 @@ def get_recipe_list():
     form = IngredientForm()
 
     if form.validate_on_submit():
+        for ingredient in form.ingredients.data.split(", "):
+            if check_valid_ingredient(ingredient) is False:
+                '''Add flash'''
+                return redirect('/search')
+
         ingredients = form.ingredients.data
 
         res = requests.get('https://api.spoonacular.com/recipes/findByIngredients', 
@@ -126,6 +133,7 @@ def get_recipe_list():
         return render_template('recipe/recipe_list.html', ingredients=ingredients, data=data)
     else:
         return redirect('/search')
+
 
 @app.route('/recipe/<int:recipe_id>', methods=["GET"])
 def get_recipe_details(recipe_id):
@@ -146,6 +154,18 @@ def get_recipe_details(recipe_id):
     return render_template('recipe/recipe_detail.html', data_recipe = data_recipe, data_instructions=data_instructions, recipe_id=recipe_id)
 
 
+@app.route('/recipe/<int:user_id>/favorites')
+def show_favorites(user_id):
+    '''Show user favorite recipes'''
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect('/')
+    
+    user = User.query.get_or_404(user_id)
+    favorite_recipes = Favorite.query.filter_by(user_id = g.user.id)
+    return render_template('user/favorites.html', user = user, favorite_recipes=favorite_recipes)
+
 @app.route('/recipe/<int:recipe_id>/favorites', methods = ['POST'])
 def add_favorites(recipe_id):
     '''Toggle liked recipe for current user'''
@@ -161,8 +181,14 @@ def add_favorites(recipe_id):
     user.favorites.append(favorited_recipe)
     db.session.add(user)
     db.session.commit()
-    
-    return render_template('user/favorites.html')
+
+    favorite_recipes = Favorite.query.filter_by(user_id = g.user.id)
+
+    return redirect('/search')
+
+
+
+
 
 
 

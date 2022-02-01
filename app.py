@@ -70,6 +70,7 @@ def signup():
     else:
         return render_template('user/signup.html', form=form)
 
+
 @app.route('/login', methods=["GET", "POST"])
 def login():
     """Handle user login."""
@@ -121,7 +122,7 @@ def get_recipe_list():
     if form.validate_on_submit():
         for ingredient in form.ingredients.data.split(", "):
             if check_valid_ingredient(ingredient) is False:
-                '''Add flash'''
+                flash("Please enter a valid ingredient", "danger")
                 return redirect('/search')
 
         ingredients = form.ingredients.data
@@ -184,7 +185,23 @@ def add_favorites(recipe_id):
 
     favorite_recipes = Favorite.query.filter_by(user_id = g.user.id)
 
+    flash("Recipe added to your favorites!", "success")
     return redirect('/search')
+
+@app.route('/recipe/<int:recipe_id>/delete', methods = ["POST"])
+def delete_favorite_recipe(recipe_id):
+    '''Remove a recipe from favorites'''
+
+    user = User.query.get(g.user.id)
+    
+
+    favorite_recipes = Favorite.query.filter_by(user_id = g.user.id)
+    for favorite in favorite_recipes:
+        if favorite.recipe.id == recipe_id:
+            db.session.delete(favorite)
+            db.session.commit()
+
+    return redirect(f"/recipe/{user.id}/favorites")
 
 
 

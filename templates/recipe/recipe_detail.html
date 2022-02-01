@@ -5,7 +5,7 @@
     <div class="card-body">
       <h1>{{data_recipe.title}}</h1> 
       <form method="POST" action="/recipe/{{recipe_id}}/favorites">
-        <button>Add to Favorites</button>
+        <button class="btn btn-success">Add to Favorites</button>
       </form>
       <br>
       <div class="container">
@@ -14,7 +14,7 @@
             <h2>Ingredients</h2>
           {% for ingredients in data_recipe['extendedIngredients']%}
           <ul class="list-group">
-            <li class="list-group-item">
+            <li class="form-check">
               <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
               {{ingredients.original}}
             </li>

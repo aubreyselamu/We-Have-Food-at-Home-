@@ -17,12 +17,10 @@
                   <div class="mb-2">
                     <i>Ingredients section</i>
                   </div>
-                  <form>
-                    <button>Delete Me</button>
+                  <form action="/recipe/{{favorite.recipe.id}}/delete" method="POST">
+                    <a href="/recipe/{{favorite.recipe.id}}" class="btn btn-success">Click Me for Recipe Details</a>
+                    <button class="btn btn-danger">Delete Me</button>
                   </form>
-                  <div>
-                    <a href="#" class="btn btn-primary">Click Me for Recipe Details</a>
-                  </div>
                 </div>
               </div>
             </div>

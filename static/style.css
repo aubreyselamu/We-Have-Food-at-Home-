@@ -9,6 +9,14 @@
 	font-weight: bold;
 }
 
-.user:hover {
-	color: green;
+.login-image {
+	background-image: url("img_girl.jpg");
+	width: 50%;
+	position: absolute;
+	right: 0px;
+	height: 100%;
+}
+
+body {
+	margin: 0;
 }

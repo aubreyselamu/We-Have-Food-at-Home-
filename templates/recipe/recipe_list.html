@@ -1,9 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="bg"></div>
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <ul class="list-group no-hover" id="recipes">
+<div class="col-md-10 shadow-sm p-4 m-4 bg-white" style="background-image: url('https://i.ibb.co/v4ZwQHv/search-area-bg.png'); width: max-content;">
+  <div class="row">
+    <h3 class="display-4 text-center ">
+      List Your <span class="fridge_ingredients__heading">Fridge
+        Ingredients</span> <span class="below_heading">Below!</span>
+    </h3>
+    <p class="text-center">Seperate your ingredients with spaces ONLY!</p>
+  </div>
+  <div class="row justify-content-center">
+    <form action="/recipes" class="col-lg-5 p-3 d-flex" method="POST">
+      {% for field in form %} {{ field(placeholder=field.label.text,
+      class="form-control mr-2") if field.name }} {% endfor %}
+      <button class="btn btn-success" type="submit">Get My Recipe!</button>
+    </form>
+<div class="row justify-content-center">
+   <div class="col-md-8">
+       <ul class="list-group no-hover" id="recipes">
         {% for recipe in data %}
         <div class="card mb-3" style="max-width: 540px height 100 center;">
           <div class="row g-0">
@@ -26,6 +39,18 @@
         {% endfor %}
       </ul>
       {% endblock %}
+
+
+
+
+
+
+
+
+      
+
+
+
 
 
 

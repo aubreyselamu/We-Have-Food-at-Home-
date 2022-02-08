@@ -105,7 +105,9 @@ def logout():
 def homepage():
     '''Show home page'''
 
-    return render_template('base.html')
+    form = IngredientForm()
+
+    return render_template('recipe/search.html', form=form)
 
 ##############################################################################
 # Recipe Routes
@@ -142,7 +144,7 @@ def get_recipe_list():
             recipe_summary = requests.get(f'https://api.spoonacular.com/recipes/{id}/summary?apiKey={API_KEY}').json()
             summaries.append(recipe_summary['summary'])
 
-        return render_template('recipe/recipe_list.html', ingredients=ingredients, data=data, summaries=summaries)
+        return render_template('recipe/recipe_list.html', ingredients=ingredients, data=data, summaries=summaries, form=form)
     else:
         return redirect('/search')
 
@@ -213,6 +215,22 @@ def delete_favorite_recipe(recipe_id):
             db.session.commit()
     flash("Recipe has been deleted", "success")
     return redirect(f"/recipe/{user.id}/favorites")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -6,11 +6,12 @@
     <h3 class="display-4 text-center">
       List Your Fridge Ingredients Below!
     </h3>
+    <p class="text-center">Seperate your ingredients with spaces ONLY!</p>
   </div>
   <div class="row justify-content-center">
     <form action="/recipes" class="col-lg-5 p-3 d-flex" method="POST">
       {% for field in form %} {{ field(placeholder=field.label.text,
       class="form-control mr-2") if field.name }} {% endfor %}
-      <button class="btn btn-primary" type="submit">Get My Recipe!</button>
+      <button class="btn btn-success" type="submit">Get My Recipe!</button>
     </form>
 {% endblock %}

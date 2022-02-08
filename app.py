@@ -10,6 +10,8 @@ from models import db, connect_db, User, Recipe, Favorite
 from forms import IngredientForm, UserAddForm, LoginForm
 from sqlalchemy.exc import IntegrityError
 
+API_KEY = "d0a6169003194a3c865ffb59e9373166"
+
 CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
@@ -122,7 +124,7 @@ def get_recipe_list():
     form = IngredientForm()
 
     if form.validate_on_submit():
-        for ingredient in form.ingredients.data.split(", "):
+        for ingredient in form.ingredients.data.split(" "):
             if check_valid_ingredient(ingredient) is False:
                 flash("Please enter a valid ingredient", "danger")
                 return redirect('/search')
@@ -130,15 +132,17 @@ def get_recipe_list():
         ingredients = form.ingredients.data
 
         res = requests.get('https://api.spoonacular.com/recipes/findByIngredients', 
-                params={'apiKey': 'd0a6169003194a3c865ffb59e9373166', 'ingredients': ingredients})
+                params={'apiKey': API_KEY, 'ingredients': ingredients})
         data = res.json()
 
-        # for recipe in data:
-        #     id = recipe['id']
-        #     recipe_summary = requests.get(f'https://api.spoonacular.com/recipes/{id}/summary?apiKey=d0a6169003194a3c865ffb59e9373166')
-        #     summary = recipe_summary['summary']
+        summaries = []
 
-        return render_template('recipe/recipe_list.html', ingredients=ingredients, data=data)
+        for recipe in data:
+            id = recipe['id']
+            recipe_summary = requests.get(f'https://api.spoonacular.com/recipes/{id}/summary?apiKey={API_KEY}').json()
+            summaries.append(recipe_summary['summary'])
+
+        return render_template('recipe/recipe_list.html', ingredients=ingredients, data=data, summaries=summaries)
     else:
         return redirect('/search')
 
@@ -148,10 +152,10 @@ def get_recipe_details(recipe_id):
     '''Page with details about an individual recipe
     such as ingredients, price, steps etc.'''
 
-    res_recipe = requests.get(f'https://api.spoonacular.com/recipes/{recipe_id}/information?apiKey=d0a6169003194a3c865ffb59e9373166')
+    res_recipe = requests.get(f'https://api.spoonacular.com/recipes/{recipe_id}/information?apiKey={API_KEY}')
     data_recipe = res_recipe.json()
 
-    res_instructions = requests.get(f'https://api.spoonacular.com/recipes/{recipe_id}/analyzedInstructions?apiKey=d0a6169003194a3c865ffb59e9373166')
+    res_instructions = requests.get(f'https://api.spoonacular.com/recipes/{recipe_id}/analyzedInstructions?apiKey={API_KEY}')
     data_instructions = res_instructions.json()
 
     if Recipe.query.get(recipe_id) is None:

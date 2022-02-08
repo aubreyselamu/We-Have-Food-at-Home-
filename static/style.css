@@ -9,14 +9,19 @@
 	font-weight: bold;
 }
 
-.login-image {
-	background-image: url("img_girl.jpg");
-	width: 50%;
-	position: absolute;
-	right: 0px;
+body,
+html {
+	margin: 0;
 	height: 100%;
 }
 
-body {
-	margin: 0;
+.fridge_ingredients__heading {
+	font-family: 'afternoon_in_stereo_personal_use.ttf';
+	color: #018002;
+	font-size: 65px;
+}
+
+.below_heading {
+	font-family: 'CircularStd-Black.otf';
+	font-size: 55px;
 }

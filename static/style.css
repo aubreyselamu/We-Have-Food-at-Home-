@@ -9,11 +9,11 @@
 	font-weight: bold;
 }
 
-body,
+/* body,
 html {
 	margin: 0;
 	height: 100%;
-}
+} */
 
 .fridge_ingredients__heading {
 	font-family: 'afternoon_in_stereo_personal_use.ttf';

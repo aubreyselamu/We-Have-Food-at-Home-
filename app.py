@@ -17,10 +17,10 @@ CURR_USER_KEY = "curr_user"
 app = Flask(__name__)
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql:///fridge')
-uri = os.getenv("DATABASE_URL")  # or other relevant config var
+uri = os.getenv("DATABASE_URL") 
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
-# rest of connection code using the connection string `uri`
+
 
 app.config["DATABASE_URI"] = uri
 
@@ -135,7 +135,7 @@ def get_recipe_list():
     form = IngredientForm()
 
     if form.validate_on_submit():
-        for ingredient in form.ingredients.data.split(","):
+        for ingredient in form.ingredients.data.split(", "):
             if check_valid_ingredient(ingredient) is False:
                 flash("Please enter a valid ingredient", "danger")
                 return redirect('/search')

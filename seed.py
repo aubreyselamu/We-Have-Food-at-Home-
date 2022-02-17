@@ -26,13 +26,12 @@ Recipe.query.delete()
 #Add users
 strudel = Recipe(id = 73420, 
                 image_url = 'https://spoonacular.com/recipeImages/73420-312x231.jpg', 
-                name = 'Apple Or Peach Strudel',
-                ingredients = 'apples, egg, cinnamon, baking powder')
+                name = 'Apple Or Peach Strudel')
 
 apricot = Recipe(id = 632660, 
                 image_url = 'https://spoonacular.com/recipeImages/632660-312x231.jpg', 
-                name = 'Apricot Glazed Apple Tart',
-                ingredients = 'unsalted butter, red apples, cinnamon, apricot reserves')
+                name = 'Apricot Glazed Apple Tart')
+ 
 
 
 

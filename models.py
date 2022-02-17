@@ -7,11 +7,11 @@ from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt()
 db = SQLAlchemy()
 
-# def connect_db(app):
-#     '''Connec this database to provided Flaks app'''
+def connect_db(app):
+    '''Connec this database to provided Flaks app'''
 
-#     db.app = app
-#     db.init_app(app)
+    db.app = app
+    db.init_app(app)
 
 class User(db.Model):
     '''User in System'''

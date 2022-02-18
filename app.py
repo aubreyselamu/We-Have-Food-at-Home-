@@ -84,7 +84,7 @@ def signup():
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
-    """Handle user login."""
+    """Handle user login.."""
 
     form = LoginForm()
 

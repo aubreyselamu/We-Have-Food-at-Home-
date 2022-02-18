@@ -136,6 +136,7 @@ def get_recipe_list():
 
     if form.validate_on_submit():
         for ingredient in form.ingredients.data.split(", "):
+            ingredient.lower()
             if check_valid_ingredient(ingredient) is False:
                 flash("Please enter a valid ingredient", "danger")
                 return redirect('/search')

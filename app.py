@@ -136,12 +136,12 @@ def get_recipe_list():
 
     if form.validate_on_submit():
         for ingredient in form.ingredients.data.split(", "):
-            ingredient.lower()
+            ingredient = ingredient.lower()
             if check_valid_ingredient(ingredient) is False:
                 flash("Please enter a valid ingredient", "danger")
                 return redirect('/search')
 
-        ingredients = form.ingredients.data
+        ingredients = form.ingredients.data.lower()
 
         res = requests.get('https://api.spoonacular.com/recipes/findByIngredients', 
                 params={'apiKey': API_KEY, 'ingredients': ingredients, 'number':2})

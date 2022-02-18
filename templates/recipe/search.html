@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="col-md-10 shadow-sm p-4 m-4 bg-white" style="background-image: url('https://i.ibb.co/v4ZwQHv/search-area-bg.png'); width: max-content;">
+<div class="col-md-10 shadow-sm p-4 m-4 bg-white" style="background-image: url('https://i.ibb.co/v4ZwQHv/search-area-bg.png');">
   <div class="row">
     <h3 class="display-4 text-center ">
       List Your <span class="fridge_ingredients__heading">Fridge
         Ingredients</span> <span class="below_heading">Below!</span>
     </h3>
-    <p class="text-center">Please seperate your ingredients with spaces ONLY!</p>
+    <p class="text-center">Please separate your ingredients with commas followed by spaces!</p>
   </div>
   <div class="row justify-content-center">
     <form action="/recipes" class="col-lg-5 p-3 d-flex" method="POST">

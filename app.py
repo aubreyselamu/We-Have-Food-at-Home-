@@ -144,7 +144,7 @@ def get_recipe_list():
         ingredients = form.ingredients.data.lower()
 
         res = requests.get('https://api.spoonacular.com/recipes/findByIngredients', 
-                params={'apiKey': API_KEY, 'ingredients': ingredients, 'number':2})
+                params={'apiKey': API_KEY, 'ingredients': ingredients, 'ranking':2})
         data = res.json()
 
         summaries = []

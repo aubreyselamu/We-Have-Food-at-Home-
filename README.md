@@ -5,4 +5,7 @@ We Have Food at Home is a web application that solves the problem of having food
 * Front-End: HTML, CSS, Bootstrap
 * Back-End: Python, Flask, PostgreSQL, Bcrypt
 
+## Screenshots of Application
+![Screenshot1](https://i.ibb.co/DCSj9Jm/Screen-Shot-2022-02-15-at-1-49-52-PM.png)
+
 
